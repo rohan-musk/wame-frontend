@@ -56,16 +56,16 @@ export const HomeText = styled.p`
   padding-bottom: 10px;
 `;
 export const HomeBlob = styled.div`
-  top: 50vh;
+  bottom: 50vh;
   z-index: -1;
   position: fixed;
   min-width: 1000px;
   min-height: 1000px;
   background: radial-gradient(
     50% 50% at 50% 50%,
-    rgba(129, 108, 255, 0.3) 0%,
-    rgba(206, 151, 249, 0.3) 33.33%,
-    rgba(245, 187, 199, 0.3) 66.67%,
-    rgba(255, 255, 255, 0.3) 100%
+    rgba(129, 108, 255, 0.7) 0%,
+    rgba(206, 151, 249, 0.7) 33.33%,
+    rgba(245, 187, 199, 0.7) 66.67%,
+    rgba(255, 255, 255, 0.7) 100%
   );
 `;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   HomeContainer,
   HomeButton,
@@ -8,6 +8,23 @@ import {
   HomeBlob,
 } from './HomeLayout.styled';
 const HomeLayout = () => {
+  const handleCallbackResponse = async (response) => {
+    console.log(response);
+  };
+  useEffect(() => {
+    google.accounts.id.initialize({
+      client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+      callback: handleCallbackResponse,
+    });
+
+    google.accounts.id.renderButton(document.getElementById('signInDiv'), {
+      theme: 'outline',
+      size: 'large',
+    });
+
+    google.accounts.id.prompt();
+  }, []);
+
   return (
     <HomeContainer>
       <HomeTitle>
@@ -18,8 +35,9 @@ const HomeLayout = () => {
         Want to hire, but don't like going through thousands of resumes? <br />
         We will do it for you!
       </HomeText>
-      <HomeButton href='/login'>Login</HomeButton>
       <HomeBlob></HomeBlob>
+
+      <div id='signInDiv'></div>
     </HomeContainer>
   );
 };
