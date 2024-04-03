@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import instance from '@lib/utils/AxiosInstance';
+import Router, { useRouter } from 'next/router';
 import {
   HomeContainer,
   HomeButton,
@@ -8,9 +10,27 @@ import {
   HomeBlob,
 } from './HomeLayout.styled';
 const HomeLayout = () => {
+  const loginRouter = useRouter();
+  const {
+    query: { message },
+  } = loginRouter;
   const handleCallbackResponse = async (response) => {
-    console.log(response);
+    // console.log(response.credential);
+    await instance
+      .get('/auth/googleLogin/', {
+        withCredentials: true,
+        params: {
+          tokenId: response.credential,
+        },
+      })
+      .then((response) => {
+        // console.log(
+        //   response.data.userData?.id || response.data.user.userData?.id
+        // );
+        //Router.push('/select');
+      });
   };
+
   useEffect(() => {
     google.accounts.id.initialize({
       client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
