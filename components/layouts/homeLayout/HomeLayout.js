@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import instance from '@lib/utils/AxiosInstance';
 import Router, { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
+import { loginSuccess } from '@lib/redux/auth/auth.action';
 import {
   HomeContainer,
   HomeButton,
@@ -11,6 +13,8 @@ import {
 } from './HomeLayout.styled';
 const HomeLayout = () => {
   const loginRouter = useRouter();
+  const dispatch = useDispatch();
+
   const {
     query: { message },
   } = loginRouter;
@@ -23,11 +27,15 @@ const HomeLayout = () => {
           tokenId: response.credential,
         },
       })
-      .then((response) => {
-        // console.log(
-        //   response.data.userData?.id || response.data.user.userData?.id
-        // );
-        //Router.push('/select');
+      .then((res) => {
+        dispatch(
+          loginSuccess(
+            res.data.access_token,
+            res.data.refresh_token,
+            res.data.username
+          )
+        );
+        Router.push('/select');
       });
   };
 
